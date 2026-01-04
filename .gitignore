@@ -1,0 +1,30 @@
+# Video files
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.flv
+
+# Large model files
+*.pt
+*.pth
+*.h5
+*.pkl
+*.onnx
+
+# Other large files
+*.zip
+*.tar
+*.gz
+
+# Python
+__pycache__/
+*.pyc
+venv/
+env/
+
+input_videos/
+output_videos/
+models/
+training/
+runs/
