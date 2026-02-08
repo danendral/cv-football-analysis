@@ -24,3 +24,14 @@ class ViewTransformer():
         self.target_vertices = self.target_vertices.astype(np.float32)
 
         self.perspective_transformer = cv2.getPerspectiveTransform(self.pixel_vertices, self.target_vertices)
+
+    def add_transformed_position_to_tracks(self, tracks):
+        for object, object_tracks in tracks.items():
+            for frame_num, track in enumerate(object_tracks):
+                for track_id, track_info in track.items():
+                    position = track_info['position_adjusted']
+                    position = np.array(position)
+                    position_transformed = self.transform_point(position)
+                    if position_transformed is not None:
+                        position_transformed = position_transformed.squeeze().tolist()
+                    tracks[object][frame_num][track_id]['position_transformed'] = position_transformed
