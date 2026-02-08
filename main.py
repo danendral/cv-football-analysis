@@ -34,10 +34,13 @@ def main():
     # View Transformer
     view_transformer = ViewTransformer()
     view_transformer.add_transformed_position_to_tracks(tracks)
-
     
     # Interpolate Ball Positions
     tracks['ball'] = tracker.interpolate_ball_positions(tracks['ball'])
+
+    # Speed and Distance Estimator
+    speed_and_distance_estimator = SpeedAndDistanceEstimator()
+    speed_and_distance_estimator.add_speed_and_distance_to_tracks(tracks)
     
     # Assign PLayer Teams
     team_assigner = TeamAssigner()
@@ -84,6 +87,9 @@ def main():
 
     ## Draw Camera Movement
     output_video_frames = camera_movement_estimator.draw_camera_movement(output_video_frames, camera_movement_per_frame)
+
+    ## Draw Speed and Distance
+    output_video_frames = speed_and_distance_estimator.draw_speed_and_distance(output_video_frames, tracks)
 
     # Save Video
     save_video(output_video_frames, 'output_videos/output_video.avi')

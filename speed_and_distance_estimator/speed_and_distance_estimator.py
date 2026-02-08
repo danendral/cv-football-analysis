@@ -18,7 +18,7 @@ class SpeedAndDistanceEstimator():
                 last_frame = min(frame_num + self.frame_window, number_of_frames - 1)
 
                 for track_id, _ in object_tracks[frame_num].items():
-                    if track_id in object_tracks[last_frame]:
+                    if track_id not in object_tracks[last_frame]:
                         continue
 
                     start_position = object_tracks[frame_num][track_id]['position_transformed']
@@ -53,8 +53,8 @@ class SpeedAndDistanceEstimator():
                 if object == "ball" or object == "referees":
                     continue
                 for _, track_info in object_tracks[frame_num].items():
-                    if "speed" in track_info:
-                        speed = track_info.get('speed', None)
+                    if "speed_km_per_hour" in track_info:
+                        speed = track_info.get('speed_km_per_hour', None)
                         distance = track_info.get('distance', None)
                         if speed is None or distance is None:
                             continue
